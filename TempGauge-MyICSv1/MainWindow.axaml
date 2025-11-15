@@ -5,22 +5,53 @@
         mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="450"
         x:Class="TempGauge_MyICSv1.MainWindow"
         Title="TempGauge_MyICSv1">
-    
-    <Grid>
-        <!--UI Main Screen-->
-        <Grid.ColumnDefinitions>
-			<ColumnDefinition Width="100"/>            
-            <ColumnDefinition Width="500"/>
-        </Grid.ColumnDefinitions>
+
+    <!--UI Main Screen-->
+    <Grid ColumnDefinitions="100, 500">
 
         <!--Widget bar-->
-        <Label Grid.Column="0" Background="Red">Selections</Label>
-        <Label Grid.Column="1" Background="Black" Foreground="White">UI Main Screen</Label>
+        <Grid Grid.Column="0" RowDefinitions="*,*,*,*">
+            <!--Start Button-->
+            <Label Grid.Column="0" Grid.Row="0" Background="Gray"/>
+            <Button Content="Start" VerticalAlignment="Center" HorizontalAlignment="Center">
 
+            </Button>
+
+            <!--Stop Button-->
+            <Label Grid.Column="0" Grid.Row="1" Background="DarkGray"/>
+            <Button Grid.Row="1" Content="Stop" VerticalAlignment="Center" HorizontalAlignment="Center">
+				
+            </Button>
+            
+            <!--Reset Button-->
+            <Label Grid.Column="0" Grid.Row="2" Background="Gray"/>
+            <Button Grid.Row="2" Content="Resert" VerticalAlignment="Center" HorizontalAlignment="Center">
+				
+            </Button>
+
+            <!--Exit Button-->
+            <Label Grid.Column="0" Grid.Row="3" Background="DarkGray"/>
+            <Button Grid.Row="3" Content="Exit" VerticalAlignment="Center" HorizontalAlignment="Center">
+				
+            </Button>
+        </Grid>
+               
         <!--Temp Gauge UI-->
-        <Ellipse Grid.Column="1" Height="400" Width="400" Fill="Blue"></Ellipse>
-        <Label Grid.Column="1" Height="50" Width="200" Background="Black"/>
-        <TextBlock Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="000.00" FontSize="50" Foreground="White"></TextBlock>        
+        <Grid Grid.Column="1" RowDefinitions="20,*">
+            <Label Grid.Row="0" Background="Red" Foreground="White">MyICS Version 1.0 (Temperature Gauge)</Label>
+            
+            <!--Temp Gauge-->
+            <Label Grid.Row="1" Background="Black"/>
+            <Ellipse Grid.Row="1" Height="350" Width="350" Fill="Blue"></Ellipse>            
+            <Label Grid.Row="1" Height="50" Width="200" Background="Black"/>
+            <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="000.00" FontSize="50" Foreground="White"></TextBlock>        
+        
+            <!--Status Box-->
+            <Label Grid.Row="1" Background="Red" BorderBrush="Lime" BorderThickness="2" Height="150" Width="350" VerticalAlignment="Bottom" Margin="0,0,0,10"/>
+            
+
+        </Grid>
+        
     </Grid>
 
 </Window>
