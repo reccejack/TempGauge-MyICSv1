@@ -13,7 +13,7 @@
         <Grid Grid.Column="0" RowDefinitions="*,*,*,*">
             <!--Start Button-->
             <Label Grid.Column="0" Grid.Row="0" Background="Gray"/>
-            <Button Content="Start" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Button Content="Start" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Start_Click1">
 
             </Button>
 
@@ -47,11 +47,11 @@
 					<LinearGradientBrush StartPoint="0,0" EndPoint="0,600">
 						<GradientStop Color="Black" Offset="0.0"/>
                         <GradientStop Color="Black" Offset="0.25"/>
-                        <GradientStop Color="DarkGreen" Offset="0.45"/>                         
+                        <GradientStop Color="DarkGreen" Offset="0.65"/>                         
                     </LinearGradientBrush>
                 </Rectangle.Fill>
             </Rectangle>
-            <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,75" Text="000.00" FontSize="100" Foreground="White"></TextBlock>        
+            <TextBlock x:Name="TempTextBlock" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,75" Text="000.00" FontSize="100" Foreground="White"></TextBlock>        
         
             <!--Status Box-->
             <Label Grid.Row="3" Background="Black"/>
