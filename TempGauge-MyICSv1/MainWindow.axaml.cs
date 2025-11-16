@@ -17,7 +17,7 @@ namespace TempGauge_MyICSv1
         }
 
         private void Start_Click1(object? sender, RoutedEventArgs e)
-        {            
+        {
             tcp1.StartServer();
             tcp1.Sense(TempTextBlock);
             //sensor1.Sense(TempTextBlock);

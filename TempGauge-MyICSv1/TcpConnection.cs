@@ -18,7 +18,7 @@ namespace TempGauge
     public static float data = 0;
     public static byte[]? bytes = null;
 
-    static public bool AppState = false;
+    public static bool AppState = false;
     public void StartServer()
     {
         IPAddress ipAddress = IPAddress.Parse("169.254.102.3");
@@ -41,30 +41,25 @@ namespace TempGauge
         catch (Exception e)
         {
                 //Insert TEXTBOX that provides information on this exception
-                TextBlock msg = new TextBlock();
-                msg.Text = e.ToString();
-                UpdateMessage(data, msg);
-            }        
+        }        
     }
 
     public void Sense(TextBlock TempTxtblock)
     {
         new Thread(() =>
         {
-            StartServer();
+            //StartServer();
             TaskCompletionSource<bool> taskComplete = new TaskCompletionSource<bool>();
             while (AppState == false)
             {
                 try
                 {
                     UpdateMessage(data, TempTxtblock);
+                    Console.WriteLine("Things are happening");
                 }
                 catch (System.InvalidOperationException e)
                 {
                     /*ignored exception*/
-                    TextBlock msg = new TextBlock();
-                    msg.Text = e.ToString();
-                    UpdateMessage(data, msg);
                 }
 
                 if (AppState == true)
