@@ -14,70 +14,94 @@ using System.Threading.Tasks;
 namespace TempGauge
 {
     class TcpConnection
-{
-    public static float data = 0;
-    public static byte[]? bytes = null;
-
-    public static bool AppState = false;
-    public void StartServer()
     {
-        IPAddress ipAddress = IPAddress.Parse("169.254.102.3");
-        IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 8888);
+        //public static float data = 0;
 
-        try
-        {
-            Socket listener = new Socket(SocketType.Stream, ProtocolType.Tcp);
-            listener.Bind(localEndPoint);
-            listener.Listen(10);
-            Socket handler = listener.Accept();
-            
-            while (true)
+        static Socket socket;
+        static Socket accepted;
+        static string? strData = null;
+
+        public static byte[]? Buffer { get; set; }
+
+        //public static bool AppState = false;
+        public void StartServer()
+        {       
+            try
             {
-                bytes = new byte[10];
-                int bytesRec = handler.Receive(bytes);
-                data = float.Parse(bytesRec.ToString());
+                //temporary integer value to manage data flow
+                int count = 0;
+                while(count <= 100)
+                {
+                    socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                    socket.Bind(new IPEndPoint(IPAddress.Any, 8888));
+                    socket.Listen(100);
+
+                    accepted = socket.Accept();
+                    Buffer = new byte[accepted.SendBufferSize];
+                    int bytesRead = accepted.Receive(Buffer);
+                    byte[] formatted = new byte[bytesRead];
+                    
+                    for(int i = 0; i < bytesRead; i++)
+                    {
+                        formatted[i] = Buffer[i];
+                        count++;
+                    }
+
+                    strData = Encoding.ASCII.GetString(formatted);
+                    socket.Close();
+                    accepted.Close();
+
+
+                }
             }
+            catch (Exception e)
+            {
+                    /*Exception ignored*/
+            }        
         }
-        catch (Exception e)
-        {
-                //Insert TEXTBOX that provides information on this exception
-        }        
-    }
 
-    public void Sense(TextBlock TempTxtblock)
-    {
-        new Thread(() =>
+        //The Sense function begins a thread which will feed the UI the sensor data
+        public void Sense(TextBlock TempTxtblock)
         {
-            //StartServer();
-            TaskCompletionSource<bool> taskComplete = new TaskCompletionSource<bool>();
-            while (AppState == false)
+            new Thread(() =>
             {
-                try
+                TaskCompletionSource<bool> taskComplete = new TaskCompletionSource<bool>();
+                //while (AppState == false)
+                while(true)
                 {
-                    UpdateMessage(data, TempTxtblock);
-                    Console.WriteLine("Things are happening");
-                }
-                catch (System.InvalidOperationException e)
-                {
-                    /*ignored exception*/
-                }
+                    try
+                    {                        
+                        if (strData != null)
+                        {
+                            UpdateMessage(strData, TempTxtblock);
+                        } else if(strData == null)
+                        {
+                            UpdateMessage("000", TempTxtblock);
+                        }
+                            
+                        //Console.WriteLine("Things are happening");
+                    }
+                    catch (System.InvalidOperationException e)
+                    {
+                        /*ignored exception*/
+                    }
 
-                if (AppState == true)
-                {
-                    taskComplete.SetResult(true);
-                    Action action3 = () => TempTxtblock.Text = "OFF";
-                    //port.Close();
-                    Dispatcher.UIThread.Post(action3);
-                    break;
+                    //if (AppState == true)
+                    //{
+                    //    taskComplete.SetResult(true);
+                    //    Action action3 = () => TempTxtblock.Text = "OFF";
+                    //    //port.Close();
+                    //    Dispatcher.UIThread.Post(action3);
+                    //    break;
+                    //}
                 }
-            }
-        }).Start();
-    }
+            }).Start();
+        }
 
-    void UpdateMessage(float inputFloat, TextBlock textBlock)
-    {
-        Action action1 = () => textBlock.Text = inputFloat.ToString("F1");      
-        Dispatcher.UIThread.Post(action1);        
+        void UpdateMessage(string data, TextBlock textBlock)
+        {
+            Action action1 = () => textBlock.Text = data;      
+            Dispatcher.UIThread.Post(action1);        
+        }
     }
-}
 }
