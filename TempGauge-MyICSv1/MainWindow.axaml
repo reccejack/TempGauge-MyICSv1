@@ -18,20 +18,16 @@
             </Button>
 
             <!--Stop Button-->
-            <Label Grid.Column="0" Grid.Row="1" Background="DarkGray"/>
-            <Button Grid.Row="1" Content="Stop" VerticalAlignment="Center" HorizontalAlignment="Center">
-				
-            </Button>
+            <Label Grid.Column="0" Grid.Row="1" Background="DarkGray"/> 
+            <Button Grid.Row="1" Content="Stop" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Start_Click2"/>
             
             <!--Reset Button-->
             <Label Grid.Column="0" Grid.Row="2" Background="Gray"/>
-            <Button Grid.Row="2" Content="Resert" VerticalAlignment="Center" HorizontalAlignment="Center">
-				
-            </Button>
+            <Button Grid.Row="2" Content="Resert" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
             <!--Exit Button-->
             <Label Grid.Column="0" Grid.Row="3" Background="DarkGray"/>
-            <Button Grid.Row="3" Content="Exit" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Button Grid.Row="3" Content="Exit" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Exit_Click">
 				
             </Button>
         </Grid>
@@ -52,7 +48,7 @@
                 </Rectangle.Fill>
             </Rectangle>
             <!--Temp Display-->
-            <TextBlock x:Name="temperature" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,75" Text="000.00" FontSize="100" Foreground="White"></TextBlock>        
+            <TextBlock x:Name="TempReading" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,75" Text="000.00" FontSize="100" Foreground="White"></TextBlock>        
         
             <!--Status Box-->
             <Label Grid.Row="3" Background="Black"/>

@@ -23,7 +23,7 @@ namespace TempGauge
 
         public static byte[]? Buffer { get; set; }
 
-        //public static bool AppState = false;
+        public static bool AppState = false;
         public void StartServer()
         {       
             try
@@ -50,8 +50,6 @@ namespace TempGauge
                     strData = Encoding.ASCII.GetString(formatted);
                     socket.Close();
                     accepted.Close();
-
-
                 }
             }
             catch (Exception e)
@@ -66,14 +64,14 @@ namespace TempGauge
             new Thread(() =>
             {
                 TaskCompletionSource<bool> taskComplete = new TaskCompletionSource<bool>();
-                //while (AppState == false)
-                while(true)
+                while (AppState == false)
                 {
                     try
                     {                        
                         if (strData != null)
                         {
                             UpdateMessage(strData, TempTxtblock);
+
                         } else if(strData == null)
                         {
                             UpdateMessage("000", TempTxtblock);
@@ -86,14 +84,15 @@ namespace TempGauge
                         /*ignored exception*/
                     }
 
-                    //if (AppState == true)
-                    //{
-                    //    taskComplete.SetResult(true);
-                    //    Action action3 = () => TempTxtblock.Text = "OFF";
-                    //    //port.Close();
-                    //    Dispatcher.UIThread.Post(action3);
-                    //    break;
-                    //}
+                    if (AppState == true)
+                    {
+                        taskComplete.SetResult(true);
+                        Action action2 = () => TempTxtblock.Text = "OFF";
+                        socket.Close();
+                        accepted.Close();
+                        Dispatcher.UIThread.Post(action2);
+                        break;
+                    }
                 }
             }).Start();
         }
@@ -102,6 +101,15 @@ namespace TempGauge
         {
             Action action1 = () => textBlock.Text = data;      
             Dispatcher.UIThread.Post(action1);        
+            //Dispatcher.UIThread.Post(() =>
+            //{
+            //    textBlock.Text = data;  
+            //});
+        }
+
+        public void StopSensing()
+        {
+            AppState = true;
         }
     }
 }

@@ -1,5 +1,7 @@
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using System;
 using System.IO.Ports;
 using TempGauge;
 
@@ -19,7 +21,17 @@ namespace TempGauge_MyICSv1
         private void Start_Click1(object? sender, RoutedEventArgs e)
         {
             tcp1.StartServer();
-            tcp1.Sense(temperature);
+            tcp1.Sense(TempReading);
+        }
+
+        private void Start_Click2(object? sender, RoutedEventArgs e)
+        {
+            tcp1.StopSensing();
+        }
+
+        private void Exit_Click(object? sender, RoutedEventArgs e)
+        {
+            Environment.Exit(0);
         }
     }
 }
