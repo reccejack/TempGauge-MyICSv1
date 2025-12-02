@@ -15,8 +15,6 @@ namespace TempGauge
 {
     class TcpConnection
     {
-        //public static float data = 0;
-
         static Socket socket;
         static Socket accepted;
         static string? strData = null;
@@ -55,8 +53,7 @@ namespace TempGauge
                         if (strData != null)
                         {
                             UpdateMessage(strData, tempReading);
-
-                        }
+                                                    }
                         else if (strData == null)
                         {
                             UpdateMessage("000", tempReading);
@@ -76,7 +73,6 @@ namespace TempGauge
                     socket.Close();
                     accepted.Close();
                     Dispatcher.UIThread.Post(action2);
-                    //break;
                 }
 
             }).Start();
@@ -86,10 +82,6 @@ namespace TempGauge
         {
             Action action1 = () => textBlock.Text = data;      
             Dispatcher.UIThread.Post(action1);        
-            //Dispatcher.UIThread.Post(() =>
-            //{
-            //    textBlock.Text = data;  
-            //});
         }
 
         public void StopSensing()
