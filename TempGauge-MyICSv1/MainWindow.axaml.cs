@@ -20,8 +20,7 @@ namespace TempGauge_MyICSv1
 
         private void Start_Click1(object? sender, RoutedEventArgs e)
         {
-            tcp1.StartServer();
-            tcp1.Sense(TempReading);
+            tcp1.StartServer(TempReading);            
         }
 
         private void Start_Click2(object? sender, RoutedEventArgs e)

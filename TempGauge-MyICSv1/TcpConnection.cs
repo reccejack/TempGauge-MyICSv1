@@ -20,80 +20,65 @@ namespace TempGauge
         static Socket socket;
         static Socket accepted;
         static string? strData = null;
-
+       
         public static byte[]? Buffer { get; set; }
 
         public static bool AppState = false;
-        public void StartServer()
-        {       
-            try
-            {
-                //temporary integer value to manage data flow
-                int count = 0;
-                while(count <= 100)
-                {
-                    socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                    socket.Bind(new IPEndPoint(IPAddress.Any, 8888));
-                    socket.Listen(100);
-
-                    accepted = socket.Accept();
-                    Buffer = new byte[accepted.SendBufferSize];
-                    int bytesRead = accepted.Receive(Buffer);
-                    byte[] formatted = new byte[bytesRead];
-                    
-                    for(int i = 0; i < bytesRead; i++)
-                    {
-                        formatted[i] = Buffer[i];
-                        count++;
-                    }
-
-                    strData = Encoding.ASCII.GetString(formatted);
-                    socket.Close();
-                    accepted.Close();
-                }
-            }
-            catch (Exception e)
-            {
-                    /*Exception ignored*/
-            }        
-        }
-
-        //The Sense function begins a thread which will feed the UI the sensor data
-        public void Sense(TextBlock TempTxtblock)
+        public void StartServer(TextBlock tempReading)
         {
+            //IPAddress and IPEndPoint information for Server (DCS or SCADA System)
+            IPAddress ipAddress = IPAddress.Parse("169.254.102.3");
+            IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 8888);
+
             new Thread(() =>
             {
                 TaskCompletionSource<bool> taskComplete = new TaskCompletionSource<bool>();
                 while (AppState == false)
                 {
                     try
-                    {                        
+                    {
+                        socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                        socket.Bind(localEndPoint);
+                        socket.Listen(100);
+                        accepted = socket.Accept();
+                        Buffer = new byte[accepted.SendBufferSize];
+                        int bytesRead = accepted.Receive(Buffer);
+                        byte[] formatted = new byte[bytesRead];
+
+                        for (int i = 0; i < bytesRead; i++)
+                        {
+                            formatted[i] = Buffer[i];
+                        }
+
+                        strData = Encoding.ASCII.GetString(formatted);
+
                         if (strData != null)
                         {
-                            UpdateMessage(strData, TempTxtblock);
+                            UpdateMessage(strData, tempReading);
 
-                        } else if(strData == null)
-                        {
-                            UpdateMessage("000", TempTxtblock);
                         }
-                            
-                        //Console.WriteLine("Things are happening");
-                    }
-                    catch (System.InvalidOperationException e)
-                    {
-                        /*ignored exception*/
-                    }
-
-                    if (AppState == true)
-                    {
-                        taskComplete.SetResult(true);
-                        Action action2 = () => TempTxtblock.Text = "OFF";
+                        else if (strData == null)
+                        {
+                            UpdateMessage("000", tempReading);
+                        }
                         socket.Close();
                         accepted.Close();
-                        Dispatcher.UIThread.Post(action2);
-                        break;
+                    }
+                    catch (Exception ex)
+                    {
+                        /*Ignore exception*/
                     }
                 }
+                if (AppState == true)
+                {
+                    taskComplete.SetResult(true);
+                    Action action2 = () => tempReading.Text = "OFF";
+                    socket.Close();
+                    accepted.Close();
+                    Dispatcher.UIThread.Post(action2);
+                    //break;
+                }
+
             }).Start();
         }
 
