@@ -21,9 +21,11 @@ namespace TempGauge
        
         public static byte[]? Buffer { get; set; }
 
-        public static bool AppState = false;
+        public static bool? AppState = null;
         public void StartServer(TextBlock tempReading)
         {
+            AppState = false;
+
             //IPAddress and IPEndPoint information for Server (DCS or SCADA System)
             IPAddress ipAddress = IPAddress.Parse("169.254.102.3");
             IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 8888);
@@ -39,7 +41,8 @@ namespace TempGauge
                         socket.Bind(localEndPoint);
                         socket.Listen(100);
                         accepted = socket.Accept();
-                        Buffer = new byte[accepted.SendBufferSize];
+                        //Buffer = new byte[accepted.SendBufferSize];
+                        Buffer = new byte[3];
                         int bytesRead = accepted.Receive(Buffer);
                         byte[] formatted = new byte[bytesRead];
 
@@ -66,13 +69,15 @@ namespace TempGauge
                         /*Ignore exception*/
                     }
                 }
+
                 if (AppState == true)
                 {
-                    taskComplete.SetResult(true);
+                    //taskComplete.SetResult(true);
                     Action action2 = () => tempReading.Text = "OFF";
                     socket.Close();
                     accepted.Close();
                     Dispatcher.UIThread.Post(action2);
+                    taskComplete.SetResult(true);
                 }
 
             }).Start();
