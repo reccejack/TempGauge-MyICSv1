@@ -25,7 +25,7 @@
             
             <!--Reset Button-->
             <Label Grid.Column="0" Grid.Row="2" Background="Gray"/>
-            <Button Grid.Row="2" Content="Resert" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Button Grid.Row="2" Content="Reset" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
             <!--Exit Button-->
             <Label Grid.Column="0" Grid.Row="3" Background="DarkGray"/>
@@ -70,9 +70,9 @@
                     <TextBlock Text="TEMP" Foreground="White"></TextBlock>
                     <TextBlock Text="192.168.0.10" Foreground="White"></TextBlock>
                     <TextBlock Text="255.255.255.0" Foreground="White"></TextBlock>
-                    <TextBlock Text="ETHERNET" Foreground="White"></TextBlock>
-                    <TextBlock Text="5555" Foreground="White"></TextBlock>
-                    <TextBlock Text="192.168.0.1" Foreground="White"></TextBlock>
+                    <TextBlock Text="TCP" Foreground="White"></TextBlock>
+                    <TextBlock Text="8888" Foreground="White"></TextBlock>
+                    <TextBlock Text="9600" Foreground="White"></TextBlock>
                 </StackPanel>
 
             </StackPanel>
