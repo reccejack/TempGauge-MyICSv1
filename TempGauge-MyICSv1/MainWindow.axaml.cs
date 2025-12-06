@@ -15,7 +15,7 @@ namespace TempGauge_MyICSv1
 
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent();          
         }
 
         private void Start_Click1(object? sender, RoutedEventArgs e)
