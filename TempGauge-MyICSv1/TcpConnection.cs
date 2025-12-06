@@ -42,7 +42,7 @@ namespace TempGauge
                         socket.Listen(100);
                         accepted = socket.Accept();
                         //Buffer = new byte[accepted.SendBufferSize];
-                        Buffer = new byte[5];
+                        Buffer = new byte[2];
                         int bytesRead = accepted.Receive(Buffer);
                         byte[] formatted = new byte[bytesRead];
 
