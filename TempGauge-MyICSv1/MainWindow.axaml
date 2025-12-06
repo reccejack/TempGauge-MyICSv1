@@ -15,9 +15,7 @@
         <Grid Grid.Column="0" RowDefinitions="*,*,*,*">
             <!--Start Button-->
             <Label Grid.Column="0" Grid.Row="0" Background="Gray"/>
-            <Button Content="Start" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Start_Click1">
-
-            </Button>
+            <Button Content="Start" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Start_Click1"/>
 
             <!--Stop Button-->
             <Label Grid.Column="0" Grid.Row="1" Background="DarkGray"/> 
@@ -29,9 +27,8 @@
 
             <!--Exit Button-->
             <Label Grid.Column="0" Grid.Row="3" Background="DarkGray"/>
-            <Button Grid.Row="3" Content="Exit" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Exit_Click">
-				
-            </Button>
+            <Button Grid.Row="3" Content="Exit" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Exit_Click"/>
+
         </Grid>
                
         <!--Temp Gauge UI-->
