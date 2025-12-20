@@ -1,8 +1,9 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using TempGaugeMyICS;
 
-namespace TempGauge_MyICSv1
+namespace TempGaugeMyICS
 {
     public partial class App : Application
     {
@@ -14,9 +15,9 @@ namespace TempGauge_MyICSv1
         public override void OnFrameworkInitializationCompleted()
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-            {
                 desktop.MainWindow = new MainWindow();
-            }
+            else if (ApplicationLifetime is ISingleViewApplicationLifetime singleView)
+                singleView.MainView = new MainSingleView();
 
             base.OnFrameworkInitializationCompleted();
         }
