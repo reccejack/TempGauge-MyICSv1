@@ -27,9 +27,16 @@ class TcpConnection
     {
         AppState = false;
 
-        //IPAddress and IPEndPoint information for Server (DCS or SCADA System)
-        IPAddress ipAddress = IPAddress.Parse("169.254.102.3");
-        IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 8888);
+        //Acquiring the IP Address of the host machine
+        string hostName = Dns.GetHostName();
+        var hostEntry = Dns.GetHostEntry(hostName);
+        IPAddress ipAddress = hostEntry.AddressList.FirstOrDefault(ip => ip.AddressFamily == AddressFamily.InterNetwork);
+        var endPoint = new IPEndPoint(ipAddress, 8888);
+
+
+        //IPAddress and IPEndPoint information for Server (DCS or SCADA System)        
+        //IPAddress ipAddress = IPAddress.Parse("169.254.102.3");
+        //IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 8888);
 
         new Thread(() =>
         {
@@ -39,7 +46,8 @@ class TcpConnection
                 try
                 {
                     socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                    socket.Bind(localEndPoint);
+                    //socket.Bind(localEndPoint);
+                    socket.Bind(endPoint);
                     socket.Listen(100);
                     accepted = socket.Accept();
                     //Buffer = new byte[accepted.SendBufferSize];
