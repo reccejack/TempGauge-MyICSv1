@@ -21,12 +21,12 @@ Version 1 features readings based on the following (and will be tailored in the 
 
 <h3>Software:</h3></br>
 <p>
-    Current software specifications:
+    Current hardware and software specifications:
     <ul>
-        <li><a href="https://learn.microsoft.com/en-us/dotnet/csharp/">C#, .NET</a>/li>
+        <li><a href="https://learn.microsoft.com/en-us/dotnet/csharp/">C#, .NET</a></li>
         <li><a href="https://docs.avaloniaui.net/">Avalonia UI</a></li>
-        <li></li>
-        <li></li>
+        <li><a href="https://docs.arduino.cc/">Arduino Uno</a></li>
+        <li><a href="https://www.raspberrypi.com/">Raspbian OS</a></li>
     </ul>
 </p>
 
