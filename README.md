@@ -19,6 +19,17 @@ Version 1 features readings based on the following (and will be tailored in the 
         <li>BAUD rate (if applicable with certain connections).  </li>
     </ol>
 
+<h3>Software:</h3></br>
+<p>
+    Current software specifications:
+    <ul>
+        <li>C#, .NET</li>
+        <li><a href="https://docs.avaloniaui.net/">Avalonia UI</a></li>
+        <li></li>
+        <li></li>
+    </ul>
+</p>
+
 <p>
     <img src="https://github.com/reccejack/Images/blob/main/Tempgauge-draft-1.jpg">
 </p>
