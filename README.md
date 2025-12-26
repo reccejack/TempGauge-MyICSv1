@@ -11,12 +11,12 @@ Purpose:</br>
 temperature reading via an LCD or other display surface, provided through a graphical user interface (GUI).  
 Version 1 features readings based on the following (and will be tailored in the future for specific protocols):</p>
     <ol>
-        <li>1)  Reading type (temperature, pressure, etc...)</li>
-        <li>2)  IP address (again, this is based on specific protocols which will be a variable in future versions)</li>
-        <li>3)  Subnet mask</li>
-        <li>4)  Connection type (protocol type)</li>
-        <li>5)  PORT </li>
-        <li>6)  BAUD rate (if applicable with certain connections).  </li>
+        <li>Reading type (temperature, pressure, etc...)</li>
+        <li>IP address (again, this is based on specific protocols which will be a variable in future versions)</li>
+        <li>Subnet mask</li>
+        <li>Connection type (protocol type)</li>
+        <li>PORT </li>
+        <li>BAUD rate (if applicable with certain connections).  </li>
     </ol>
 
     
