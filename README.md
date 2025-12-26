@@ -1,4 +1,4 @@
-PROJECT: MyICS Version 1.0                                                                                    *
+PROJECT: MyICS Version 1.0
 SUB-PROJECT: "TempGauge-MyICSv1"
 
 Background:              
