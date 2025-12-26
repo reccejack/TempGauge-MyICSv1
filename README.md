@@ -20,6 +20,6 @@ Version 1 features readings based on the following (and will be tailored in the 
     </ol>
 
 <p>
-    <a href="https://github.com/reccejack/Images/blob/main/Tempgauge-draft-1.jpg">
+    <img src="https://github.com/reccejack/Images/blob/main/Tempgauge-draft-1.jpg">
 </p>
     
