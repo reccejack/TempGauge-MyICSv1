@@ -11,7 +11,7 @@ Purpose:</br>
 temperature reading via an LCD or other display surface, provided through a graphical user interface (GUI).  
 Version 1 features readings based on the following (and will be tailored in the future for specific protocols):</p>
     <ol>
-        <li>Reading type (temperature, pressure, etc...)</li>
+        <li>Signal reading type (temperature, pressure, etc...)</li>
         <li>IP address (again, this is based on specific protocols which will be a variable in future versions)</li>
         <li>Subnet mask</li>
         <li>Connection type (protocol type)</li>
