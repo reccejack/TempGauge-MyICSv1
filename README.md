@@ -23,7 +23,7 @@ Version 1 features readings based on the following (and will be tailored in the 
 <p>
     Current software specifications:
     <ul>
-        <li>C#, .NET</li>
+        <li><a href="https://learn.microsoft.com/en-us/dotnet/csharp/">C#, .NET</a>/li>
         <li><a href="https://docs.avaloniaui.net/">Avalonia UI</a></li>
         <li></li>
         <li></li>
