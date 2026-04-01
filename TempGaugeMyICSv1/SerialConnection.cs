@@ -18,7 +18,6 @@ class SerialConnection
     public string? outputData1 { get; set; }
     public string? filteredData1 { get; set; }
     public decimal outputDouble1 { get; set; }
-
     string CommPort { get; set; }
     int BaudRate { get; set; }
 

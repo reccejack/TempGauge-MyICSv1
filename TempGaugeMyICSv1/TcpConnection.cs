@@ -33,12 +33,16 @@ class TcpConnection
         //IPAddress ipAddress = hostEntry.AddressList.FirstOrDefault(ip => ip.AddressFamily == AddressFamily.InterNetwork);
         //var endPoint = new IPEndPoint(ipAddress, 8888);
 
-        var endPoint = new IPEndPoint(IPAddress.Any, 8888);
+        //var endPoint = new IPEndPoint(IPAddress.Any, 8888);
 
 
         //IPAddress and IPEndPoint information for Server (DCS or SCADA System)        
-        //IPAddress ipAddress = IPAddress.Parse("169.254.178.156");
-        //IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 8888);
+        //IPAddress ipAddress = IPAddress.Any;
+        //IPAddress ipAddress = IPAddress.Parse("192.168.102.20");
+
+        //This IPAddress must be bound to the 'Server' IP
+        IPAddress ipAddress = IPAddress.Parse("169.254.102.3");
+        IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 8888);
 
         new Thread(() =>
         {
@@ -48,8 +52,8 @@ class TcpConnection
                 try
                 {
                     socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                    //socket.Bind(localEndPoint);
-                    socket.Bind(endPoint);
+                    socket.Bind(localEndPoint);
+                    //socket.Bind(endPoint);
                     socket.Listen(100);
                     accepted = socket.Accept();
                     //Buffer = new byte[accepted.SendBufferSize];
