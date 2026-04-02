@@ -1,11 +1,14 @@
 ﻿using Avalonia.Controls;
+using Avalonia.Media;
 using Avalonia.Threading;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -37,11 +40,11 @@ class TcpConnection
 
 
         //IPAddress and IPEndPoint information for Server (DCS or SCADA System)        
-        //IPAddress ipAddress = IPAddress.Any;
+        IPAddress ipAddress = IPAddress.Any;
         //IPAddress ipAddress = IPAddress.Parse("192.168.102.20");
 
         //This IPAddress must be bound to the 'Server' IP
-        IPAddress ipAddress = IPAddress.Parse("169.254.102.3");
+        //IPAddress ipAddress = IPAddress.Parse("169.254.102.3");
         IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 8888);
 
         new Thread(() =>
@@ -51,27 +54,35 @@ class TcpConnection
             {
                 try
                 {
+                    //Instantiate the socket
                     socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
+                    //Bind the new socket to the local endpoint
                     socket.Bind(localEndPoint);
-                    //socket.Bind(endPoint);
-                    socket.Listen(100);
+                    
+                    //Begin listening on the socket and accept the inbound data
+                    socket.Listen(100);                   
                     accepted = socket.Accept();
-                    //Buffer = new byte[accepted.SendBufferSize];
-                    Buffer = new byte[2];
-                    int bytesRead = accepted.Receive(Buffer);
-                    byte[] formatted = new byte[bytesRead];
 
-                    for (int i = 0; i < bytesRead; i++)
-                    {
-                        formatted[i] = Buffer[i];
-                    }
+                    //Instantiate an empty Buffer
+                    //Buffer = new byte[2];
+                    Buffer = new byte[2];                    
 
-                    strData = Encoding.ASCII.GetString(formatted);
+                    //Quantify the amount of data read from the socket
+                    int bytesRead = accepted.Receive(Buffer);                                       
+
+
+                    //Instantiate a new byte array and append each new received byte from the Buffer (via bytesRead) per the length of the bytesRead quantity 
+
+
+                    //Encode the new data on the formatted byte array to a string and update the UI with the new reading                    
+                    strData = Encoding.ASCII.GetString(Buffer);
 
                     if (strData != null)
-                    {
+                    {                        
                         UpdateMessage(strData, tempReading);
-                                                }
+
+                    }
                     else if (strData == null)
                     {
                         UpdateMessage("000", tempReading);
